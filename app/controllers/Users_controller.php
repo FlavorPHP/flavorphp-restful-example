@@ -1,17 +1,37 @@
 <?php
-/**
-* Users Restful resource
-*/
-class Users_controller extends RestfulController    
-{
-    
-    protected function get($id){
-        $user = new User();
-        $users = $user->findAll();
-        echo json_encode($users);
+
+class Users_controller extends restful {
+	
+	protected function get($data) {
+		$user = new User();		
+		$users = $user->findAll();
+		if ($user->isNew()) {
+			$this->response("No existen usuarios", 404);
+		} else {
+			$this->response($users, 200);
+		}
+    }
+	
+	
+	// Por el momento yo lo tengo así :Pecesama
+	/*
+	protected function post($data) {
+		$this->response("No implementado", 405);
     }
 
-    protected function post($id){
+    protected function put($data) {
+		$this->response("No implementado", 405);
+    }
+
+    protected function delete($data) {
+        $this->response("No implementado", 405);
+    }*/
+
+
+	// Nota de Pecesama
+	// Lo que sigue aquí abajo no lo he probado
+	// le cambié a la variable $data para que corresponda a la clase abstracta
+    protected function post($data) {
 
         // Prepare response 
         $response = $this->data;
@@ -30,7 +50,7 @@ class Users_controller extends RestfulController
         echo json_encode($response);
     }
 
-    protected function put($id){
+    protected function put($data) {
 
         // Prepare response 
         $response = $this->data;
@@ -50,7 +70,7 @@ class Users_controller extends RestfulController
         echo json_encode($response);
     }
 
-    protected function delete($id){
+    protected function delete($data) {
 
         // Prepare response 
         $response['result'] = false;

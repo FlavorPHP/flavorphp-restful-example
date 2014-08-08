@@ -1,9 +1,8 @@
 <?php
-/**
-* User model
-*/
-class User extends AppModel
-{
-    
+
+class User extends models {
+	public function __construct() {
+		parent::__construct();
+	}    
 }
 ?>
